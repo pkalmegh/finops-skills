@@ -1,0 +1,9 @@
+id: rate-optimization
+description: FinOps sub-agent for Rate Optimization capability.
+skills:
+- commitment-portfolio
+- provider-monitor
+scope:
+- public-cloud
+- saas
+delegated_tools: []

@@ -1,0 +1,48 @@
+id: commitment-portfolio
+version: 0.1.0
+capability:
+- rate-optimization
+personas:
+- finops-practitioner
+- finance
+mode: analyze-recommend
+scope:
+- public-cloud
+expected_outcome: Utilization and coverage optimization recommendations for RIs, Savings
+  Plans, and commitments.
+inputs:
+  required:
+  - name: commitment_inventory
+    shape: '{ type: str, coverage_pct: float, utilization_pct: float }'
+  optional:
+  - name: tagging_notes
+    shape: str
+  source_hint: FOCUS dataset or provider-specific metrics
+  data_trust:
+    require_pass:
+    - freshness
+    - schema
+parameters:
+  cadence:
+    type: enum
+    values:
+    - daily
+    - weekly
+    - monthly
+    default: weekly
+guardrails:
+  risk_level: medium
+  reversibility: medium
+  requires_human_approval: true
+  may_mutate_infrastructure: false
+output:
+  schema:
+    summary: str
+    recommendations:
+    - str
+    insufficient_data: bool
+    assumptions:
+    - str
+evals:
+  fixtures: ./evals/fixtures/
+  rubric: ./evals/rubric.yaml

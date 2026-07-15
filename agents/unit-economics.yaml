@@ -1,0 +1,8 @@
+id: unit-economics
+description: FinOps sub-agent for Unit Economics capability.
+skills:
+- unit-economics
+scope:
+- public-cloud
+- saas
+delegated_tools: []

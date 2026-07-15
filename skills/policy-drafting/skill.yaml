@@ -1,0 +1,51 @@
+id: policy-drafting
+version: 0.1.0
+capability:
+- governance-policy-risk
+personas:
+- leadership
+- finops-practitioner
+mode: inform-recommend
+scope:
+- public-cloud
+- saas
+- data-center
+- ai
+expected_outcome: A structured draft of governance policies covering cost boundaries
+  and escalation policies.
+inputs:
+  required:
+  - name: policy_goals
+    shape: '[str]'
+  optional:
+  - name: tagging_notes
+    shape: str
+  source_hint: FOCUS dataset or provider-specific metrics
+  data_trust:
+    require_pass:
+    - freshness
+    - schema
+parameters:
+  cadence:
+    type: enum
+    values:
+    - daily
+    - weekly
+    - monthly
+    default: weekly
+guardrails:
+  risk_level: medium
+  reversibility: high
+  requires_human_approval: true
+  may_mutate_infrastructure: false
+output:
+  schema:
+    summary: str
+    recommendations:
+    - str
+    insufficient_data: bool
+    assumptions:
+    - str
+evals:
+  fixtures: ./evals/fixtures/
+  rubric: ./evals/rubric.yaml

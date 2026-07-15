@@ -1,0 +1,60 @@
+id: anomaly-summary
+version: 0.1.0
+capability: [anomaly-management, reporting-analytics]
+personas: [finops-practitioner, finance, leadership]
+mode: inform-recommend
+scope: [public-cloud, saas, data-center, ai]
+data-scope: []
+
+expected_outcome: >
+  A plain-language anomaly summary with likely cause, financial impact, affected
+  scope, and recommended next steps, calibrated for a non-technical audience.
+
+# --- CONTEXT CONTRACT: the precondition gate -------------------
+inputs:
+  required:
+    - name: anomaly
+      shape: { service: str, period: daterange, expected_spend: money, actual_spend: money, billed_spend: money }
+    - name: affected_owner
+      shape: { team: str, cost_center: str, business_unit: str }
+  optional:
+    - name: tagging_notes
+      shape: str
+    - name: known_events
+      shape: [str]
+    - name: escalation_policy
+      shape: str
+  source_hint: "FOCUS dataset (ChargeCategory, ServiceName, SubAccountName) or anomaly-tool export"
+  data_trust:
+    require_pass: [freshness, schema]
+
+# --- PARAMETERS -------------------------------------------------
+parameters:
+  audience: { type: enum, values: [finance, leadership, engineering], default: finance }
+  tone: { type: enum, values: [neutral, urgent], default: neutral }
+
+# --- GUARDRAILS -------------------------------------------------
+guardrails:
+  risk_level: low
+  reversibility: high
+  requires_human_approval: false
+  may_mutate_infrastructure: false
+
+# --- OUTPUT CONTRACT --------------------------------------------
+output:
+  schema:
+    summary: str
+    assumptions: [str]
+    likely_causes:
+      - cause: str
+        confidence: enum[high, med, low]
+    financial_impact: money
+    affected_scope: { team: str, cost_center: str, services: [str] }
+    next_steps: [str]
+    insufficient_data: bool
+    investigation_questions: [str]
+
+# --- EVAL CONTRACT ----------------------------------------------
+evals:
+  fixtures: ./evals/fixtures/
+  rubric: ./evals/rubric.yaml

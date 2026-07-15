@@ -1,0 +1,49 @@
+id: provider-monitor
+version: 0.1.0
+capability:
+- practice-ops
+- rate-optimization
+personas:
+- finops-practitioner
+- engineering
+mode: inform-analyze
+scope:
+- public-cloud
+expected_outcome: Impact analysis of cloud provider announcements (price changes,
+  service deprecations).
+inputs:
+  required:
+  - name: provider_announcement
+    shape: '{ title: str, details: str, effective_date: date }'
+  optional:
+  - name: tagging_notes
+    shape: str
+  source_hint: FOCUS dataset or provider-specific metrics
+  data_trust:
+    require_pass:
+    - freshness
+    - schema
+parameters:
+  cadence:
+    type: enum
+    values:
+    - daily
+    - weekly
+    - monthly
+    default: weekly
+guardrails:
+  risk_level: low
+  reversibility: medium
+  requires_human_approval: false
+  may_mutate_infrastructure: false
+output:
+  schema:
+    summary: str
+    recommendations:
+    - str
+    insufficient_data: bool
+    assumptions:
+    - str
+evals:
+  fixtures: ./evals/fixtures/
+  rubric: ./evals/rubric.yaml

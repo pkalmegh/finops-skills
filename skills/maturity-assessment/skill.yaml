@@ -1,0 +1,52 @@
+id: maturity-assessment
+version: 0.1.0
+capability:
+- exec-strategy
+- assessment
+personas:
+- leadership
+- finops-practitioner
+mode: inform-recommend
+scope:
+- public-cloud
+- saas
+- data-center
+- ai
+expected_outcome: An executive-ready assessment of the organization's FinOps capabilities
+  and roadmap.
+inputs:
+  required:
+  - name: maturity_survey_responses
+    shape: '{ capability: str, level: enum[crawl,walk,run] }'
+  optional:
+  - name: tagging_notes
+    shape: str
+  source_hint: FOCUS dataset or provider-specific metrics
+  data_trust:
+    require_pass:
+    - freshness
+    - schema
+parameters:
+  cadence:
+    type: enum
+    values:
+    - daily
+    - weekly
+    - monthly
+    default: weekly
+guardrails:
+  risk_level: low
+  reversibility: medium
+  requires_human_approval: false
+  may_mutate_infrastructure: false
+output:
+  schema:
+    summary: str
+    recommendations:
+    - str
+    insufficient_data: bool
+    assumptions:
+    - str
+evals:
+  fixtures: ./evals/fixtures/
+  rubric: ./evals/rubric.yaml

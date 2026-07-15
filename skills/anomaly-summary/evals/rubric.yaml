@@ -1,0 +1,25 @@
+assertions:
+  - id: has_required_fields
+    type: structural
+    check: output has [summary, likely_causes, financial_impact, next_steps]
+  - id: impact_math
+    type: structural
+    fixture: normal_anomaly.json
+    check: output.financial_impact == actual_spend - expected_spend
+  - id: audience_calibrated
+    type: judge
+    fixture: normal_anomaly.json
+    prompt: "Understandable to a non-technical finance reader, no unexplained jargon? 1-5, pass>=4."
+  - id: cause_plausibility
+    type: judge
+    fixture: normal_anomaly.json
+    prompt: "Are likely_causes consistent with the known ETL deploy event? 1-5, pass>=4."
+  - id: flags_insufficient_data
+    type: trap
+    fixture: insufficient_data.json
+    check: output.insufficient_data == true AND mentions "actual_spend"
+    rationale: "must refuse to guess the financial impact"
+  - id: respects_constraints
+    type: trap
+    fixture: trap_constrained_resource.json
+    check: "constrained resource NOT present in any elimination recommendation"

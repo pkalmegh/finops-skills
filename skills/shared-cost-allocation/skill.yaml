@@ -1,0 +1,51 @@
+id: shared-cost-allocation
+version: 0.1.0
+capability:
+- allocation
+- chargeback
+personas:
+- finance
+- finops-practitioner
+mode: inform-recommend
+scope:
+- public-cloud
+- saas
+- data-center
+expected_outcome: Allocation framework routing unallocated shared costs down to teams
+  and departments.
+inputs:
+  required:
+  - name: unallocated_spend
+    shape: '{ item: str, amount: money }'
+  optional:
+  - name: tagging_notes
+    shape: str
+  source_hint: FOCUS dataset or provider-specific metrics
+  data_trust:
+    require_pass:
+    - freshness
+    - schema
+parameters:
+  cadence:
+    type: enum
+    values:
+    - daily
+    - weekly
+    - monthly
+    default: weekly
+guardrails:
+  risk_level: low
+  reversibility: medium
+  requires_human_approval: false
+  may_mutate_infrastructure: false
+output:
+  schema:
+    summary: str
+    recommendations:
+    - str
+    insufficient_data: bool
+    assumptions:
+    - str
+evals:
+  fixtures: ./evals/fixtures/
+  rubric: ./evals/rubric.yaml

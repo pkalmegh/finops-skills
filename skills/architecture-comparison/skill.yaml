@@ -1,0 +1,49 @@
+id: architecture-comparison
+version: 0.1.0
+capability:
+- architecting-placement
+personas:
+- engineering
+- finops-practitioner
+mode: inform-analyze-recommend
+scope:
+- public-cloud
+- ai
+expected_outcome: Comparison of different architectural designs, deployments, or resource
+  configurations.
+inputs:
+  required:
+  - name: architectural_options
+    shape: '[{ name: str, cost_estimate: money, performance_rating: str }]'
+  optional:
+  - name: tagging_notes
+    shape: str
+  source_hint: FOCUS dataset or provider-specific metrics
+  data_trust:
+    require_pass:
+    - freshness
+    - schema
+parameters:
+  cadence:
+    type: enum
+    values:
+    - daily
+    - weekly
+    - monthly
+    default: weekly
+guardrails:
+  risk_level: low
+  reversibility: medium
+  requires_human_approval: false
+  may_mutate_infrastructure: false
+output:
+  schema:
+    summary: str
+    recommendations:
+    - str
+    insufficient_data: bool
+    assumptions:
+    - str
+evals:
+  fixtures: ./evals/fixtures/
+  rubric: ./evals/rubric.yaml

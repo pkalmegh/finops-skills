@@ -1,0 +1,10 @@
+id: data-trust
+description: FinOps sub-agent for Data Trust capability.
+skills:
+- data-freshness
+- schema-drift
+- data-quality-gap
+scope:
+- public-cloud
+- saas
+delegated_tools: []

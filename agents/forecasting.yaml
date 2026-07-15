@@ -1,0 +1,9 @@
+id: forecasting
+description: FinOps sub-agent for Forecasting capability.
+skills:
+- spend-forecast
+- budget-performance
+scope:
+- public-cloud
+- saas
+delegated_tools: []

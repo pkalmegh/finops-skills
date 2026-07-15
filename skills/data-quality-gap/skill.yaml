@@ -1,0 +1,50 @@
+id: data-quality-gap
+version: 0.1.0
+capability:
+- data-ingestion
+personas:
+- finops-practitioner
+mode: analyze-recommend
+scope:
+- public-cloud
+- saas
+- data-center
+- ai
+expected_outcome: Quality metrics and identification of empty, corrupt, or inconsistent
+  cost metrics.
+inputs:
+  required:
+  - name: billing_sample
+    shape: '{ total_records: int, null_count: int, invalid_count: int }'
+  optional:
+  - name: tagging_notes
+    shape: str
+  source_hint: FOCUS dataset or provider-specific metrics
+  data_trust:
+    require_pass:
+    - freshness
+    - schema
+parameters:
+  cadence:
+    type: enum
+    values:
+    - daily
+    - weekly
+    - monthly
+    default: weekly
+guardrails:
+  risk_level: low
+  reversibility: medium
+  requires_human_approval: false
+  may_mutate_infrastructure: false
+output:
+  schema:
+    summary: str
+    recommendations:
+    - str
+    insufficient_data: bool
+    assumptions:
+    - str
+evals:
+  fixtures: ./evals/fixtures/
+  rubric: ./evals/rubric.yaml

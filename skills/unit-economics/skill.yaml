@@ -1,0 +1,51 @@
+id: unit-economics
+version: 0.1.0
+capability:
+- unit-economics
+personas:
+- finance
+- leadership
+mode: inform-analyze
+scope:
+- public-cloud
+- saas
+expected_outcome: Metrics analyzing cloud cost per business transaction, customer,
+  or API call.
+inputs:
+  required:
+  - name: total_spend
+    shape: money
+  - name: business_metric
+    shape: '{ name: str, count: int }'
+  optional:
+  - name: tagging_notes
+    shape: str
+  source_hint: FOCUS dataset or provider-specific metrics
+  data_trust:
+    require_pass:
+    - freshness
+    - schema
+parameters:
+  cadence:
+    type: enum
+    values:
+    - daily
+    - weekly
+    - monthly
+    default: weekly
+guardrails:
+  risk_level: low
+  reversibility: medium
+  requires_human_approval: false
+  may_mutate_infrastructure: false
+output:
+  schema:
+    summary: str
+    recommendations:
+    - str
+    insufficient_data: bool
+    assumptions:
+    - str
+evals:
+  fixtures: ./evals/fixtures/
+  rubric: ./evals/rubric.yaml

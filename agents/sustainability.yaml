@@ -1,0 +1,8 @@
+id: sustainability
+description: FinOps sub-agent for Sustainability capability.
+skills:
+- sustainability-assessment
+scope:
+- public-cloud
+- saas
+delegated_tools: []

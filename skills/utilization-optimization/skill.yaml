@@ -1,0 +1,49 @@
+id: utilization-optimization
+version: 0.1.0
+capability:
+- usage-optimization
+personas:
+- finops-practitioner
+- engineering
+mode: analyze-recommend
+scope:
+- public-cloud
+expected_outcome: Actionable recommendations for rightsizing or decommissioning idle/underutilized
+  resources.
+inputs:
+  required:
+  - name: utilization_metrics
+    shape: '{ resource_id: str, cpu_avg: float, memory_avg: float, disk_avg: float
+      }'
+  optional:
+  - name: tagging_notes
+    shape: str
+  source_hint: FOCUS dataset or provider-specific metrics
+  data_trust:
+    require_pass:
+    - freshness
+    - schema
+parameters:
+  cadence:
+    type: enum
+    values:
+    - daily
+    - weekly
+    - monthly
+    default: weekly
+guardrails:
+  risk_level: low
+  reversibility: medium
+  requires_human_approval: false
+  may_mutate_infrastructure: false
+output:
+  schema:
+    summary: str
+    recommendations:
+    - str
+    insufficient_data: bool
+    assumptions:
+    - str
+evals:
+  fixtures: ./evals/fixtures/
+  rubric: ./evals/rubric.yaml

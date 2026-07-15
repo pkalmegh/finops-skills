@@ -1,0 +1,51 @@
+id: spend-forecast
+version: 0.1.0
+capability:
+- forecasting
+personas:
+- finance
+- leadership
+mode: analyze-recommend
+scope:
+- public-cloud
+- saas
+- data-center
+- ai
+expected_outcome: Rolling cost forecast for future periods, incorporating trends and
+  business initiatives.
+inputs:
+  required:
+  - name: historical_cost_trend
+    shape: '[{ month: date, spend: money }]'
+  optional:
+  - name: tagging_notes
+    shape: str
+  source_hint: FOCUS dataset or provider-specific metrics
+  data_trust:
+    require_pass:
+    - freshness
+    - schema
+parameters:
+  cadence:
+    type: enum
+    values:
+    - daily
+    - weekly
+    - monthly
+    default: weekly
+guardrails:
+  risk_level: low
+  reversibility: medium
+  requires_human_approval: false
+  may_mutate_infrastructure: false
+output:
+  schema:
+    summary: str
+    recommendations:
+    - str
+    insufficient_data: bool
+    assumptions:
+    - str
+evals:
+  fixtures: ./evals/fixtures/
+  rubric: ./evals/rubric.yaml

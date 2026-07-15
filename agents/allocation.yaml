@@ -1,0 +1,8 @@
+id: allocation
+description: FinOps sub-agent for Allocation capability.
+skills:
+- shared-cost-allocation
+scope:
+- public-cloud
+- saas
+delegated_tools: []

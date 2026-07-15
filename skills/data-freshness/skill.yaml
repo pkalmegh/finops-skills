@@ -1,0 +1,49 @@
+id: data-freshness
+version: 0.1.0
+capability:
+- data-ingestion
+personas:
+- finops-practitioner
+mode: analyze-inform
+scope:
+- public-cloud
+- saas
+- data-center
+- ai
+expected_outcome: Verification status of data ingestion pipelines and latency detection.
+inputs:
+  required:
+  - name: pipeline_logs
+    shape: '{ pipeline_id: str, last_run: datetime, status: str }'
+  optional:
+  - name: tagging_notes
+    shape: str
+  source_hint: FOCUS dataset or provider-specific metrics
+  data_trust:
+    require_pass:
+    - freshness
+    - schema
+parameters:
+  cadence:
+    type: enum
+    values:
+    - daily
+    - weekly
+    - monthly
+    default: weekly
+guardrails:
+  risk_level: low
+  reversibility: medium
+  requires_human_approval: false
+  may_mutate_infrastructure: false
+output:
+  schema:
+    summary: str
+    recommendations:
+    - str
+    insufficient_data: bool
+    assumptions:
+    - str
+evals:
+  fixtures: ./evals/fixtures/
+  rubric: ./evals/rubric.yaml

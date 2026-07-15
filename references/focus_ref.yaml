@@ -1,0 +1,14 @@
+focus_version: '1.3'
+required_datasets:
+- Contract Commitment
+- Actual Cost & Usage
+essential_columns:
+- ChargeCategory
+- ServiceName
+- SubAccountName
+- CommitmentDiscountType
+- PricingCategory
+- ListCost
+- ContractedCost
+- EffectiveCost
+- BilledCost

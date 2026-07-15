@@ -1,0 +1,8 @@
+id: governance-policy
+description: FinOps sub-agent for Governance Policy capability.
+skills:
+- policy-drafting
+scope:
+- public-cloud
+- saas
+delegated_tools: []

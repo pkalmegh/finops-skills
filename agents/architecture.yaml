@@ -1,0 +1,8 @@
+id: architecture
+description: FinOps sub-agent for Architecture capability.
+skills:
+- architecture-comparison
+scope:
+- public-cloud
+- saas
+delegated_tools: []

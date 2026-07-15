@@ -1,0 +1,54 @@
+id: budget-performance
+version: 0.1.0
+capability:
+- budgeting
+- forecasting
+personas:
+- finance
+- leadership
+mode: inform-analyze-recommend
+scope:
+- public-cloud
+- saas
+- data-center
+- ai
+expected_outcome: Variance reporting showing actual vs budget and adaptive mitigation
+  planning.
+inputs:
+  required:
+  - name: actual_spend
+    shape: money
+  - name: budget_allocated
+    shape: money
+  optional:
+  - name: tagging_notes
+    shape: str
+  source_hint: FOCUS dataset or provider-specific metrics
+  data_trust:
+    require_pass:
+    - freshness
+    - schema
+parameters:
+  cadence:
+    type: enum
+    values:
+    - daily
+    - weekly
+    - monthly
+    default: weekly
+guardrails:
+  risk_level: low
+  reversibility: medium
+  requires_human_approval: false
+  may_mutate_infrastructure: false
+output:
+  schema:
+    summary: str
+    recommendations:
+    - str
+    insufficient_data: bool
+    assumptions:
+    - str
+evals:
+  fixtures: ./evals/fixtures/
+  rubric: ./evals/rubric.yaml

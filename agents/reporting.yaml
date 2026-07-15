@@ -1,0 +1,10 @@
+id: reporting
+description: FinOps sub-agent for Reporting capability.
+skills:
+- cost-change-drivers
+- maturity-assessment
+- provider-monitor
+scope:
+- public-cloud
+- saas
+delegated_tools: []

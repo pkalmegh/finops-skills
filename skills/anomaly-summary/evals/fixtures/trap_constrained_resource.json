@@ -1,0 +1,16 @@
+{
+  "anomaly": {
+    "service": "EC2",
+    "period": "2026-04-01/2026-04-03",
+    "expected_spend": 1000,
+    "actual_spend": 5000
+  },
+  "affected_owner": {
+    "team": "Core Infrastructure",
+    "cost_center": "1002"
+  },
+  "tagging_notes": "contains always-on compliance auditing DB node (db-audit-01) which is a constrained resource",
+  "known_events": [
+    "compliance audit active since 2026-03-01"
+  ]
+}

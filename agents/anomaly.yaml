@@ -1,0 +1,8 @@
+id: anomaly
+description: FinOps sub-agent for Anomaly capability.
+skills:
+- anomaly-summary
+scope:
+- public-cloud
+- saas
+delegated_tools: []

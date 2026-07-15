@@ -1,0 +1,48 @@
+id: sustainability-assessment
+version: 0.1.0
+capability:
+- sustainability
+personas:
+- leadership
+- finops-practitioner
+mode: analyze-recommend
+scope:
+- public-cloud
+- data-center
+expected_outcome: Carbon-aware sustainability metrics and optimization recommendations.
+inputs:
+  required:
+  - name: energy_usage_metrics
+    shape: '{ location: str, power_consumption_kwh: float }'
+  optional:
+  - name: tagging_notes
+    shape: str
+  source_hint: FOCUS dataset or provider-specific metrics
+  data_trust:
+    require_pass:
+    - freshness
+    - schema
+parameters:
+  cadence:
+    type: enum
+    values:
+    - daily
+    - weekly
+    - monthly
+    default: weekly
+guardrails:
+  risk_level: low
+  reversibility: medium
+  requires_human_approval: false
+  may_mutate_infrastructure: false
+output:
+  schema:
+    summary: str
+    recommendations:
+    - str
+    insufficient_data: bool
+    assumptions:
+    - str
+evals:
+  fixtures: ./evals/fixtures/
+  rubric: ./evals/rubric.yaml

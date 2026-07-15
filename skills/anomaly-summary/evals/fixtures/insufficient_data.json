@@ -1,0 +1,14 @@
+{
+  "anomaly": {
+    "service": "BigQuery",
+    "period": "2026-04-01/2026-04-03",
+    "expected_spend": 4200
+  },
+  "affected_owner": {
+    "team": "Data Engineering",
+    "cost_center": "4421"
+  },
+  "known_events": [
+    "new ETL pipeline deployed 2026-03-28"
+  ]
+}

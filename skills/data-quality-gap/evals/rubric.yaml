@@ -1,0 +1,4 @@
+assertions:
+- id: has_required_fields
+  type: structural
+  check: output has [summary, recommendations]
