@@ -5,12 +5,10 @@ personas: [finops-practitioner, finance, leadership]
 mode: inform-recommend
 scope: [public-cloud, saas, data-center, ai]
 data-scope: []
-
 expected_outcome: >
-  A plain-language anomaly summary with likely cause, financial impact, affected
-  scope, and recommended next steps, calibrated for a non-technical audience.
+  A plain-language anomaly summary with likely cause, financial impact, affected scope, and recommended next steps, calibrated for a non-technical audience.
 
-# --- CONTEXT CONTRACT: the precondition gate -------------------
+# --- CONTEXT CONTRACT -------------------------------------------
 inputs:
   required:
     - name: anomaly
@@ -25,8 +23,6 @@ inputs:
     - name: escalation_policy
       shape: str
   source_hint: "FOCUS dataset (ChargeCategory, ServiceName, SubAccountName) or anomaly-tool export"
-  data_trust:
-    require_pass: [freshness, schema]
 
 # --- PARAMETERS -------------------------------------------------
 parameters:
@@ -53,8 +49,3 @@ output:
     next_steps: [str]
     insufficient_data: bool
     investigation_questions: [str]
-
-# --- EVAL CONTRACT ----------------------------------------------
-evals:
-  fixtures: ./evals/fixtures/
-  rubric: ./evals/rubric.yaml

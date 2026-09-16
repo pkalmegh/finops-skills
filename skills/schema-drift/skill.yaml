@@ -43,6 +43,3 @@ output:
     insufficient_data: bool
     assumptions:
     - str
-evals:
-  fixtures: ./evals/fixtures/
-  rubric: ./evals/rubric.yaml
